@@ -1,29 +1,28 @@
 name: github-repo-stats
-
+ 
 on:
   schedule:
+    # Run this once per day, towards the end of the day for keeping the most
+    # recent data point most meaningful (hours are interpreted in UTC).
     - cron: "0 23 * * *"
-  workflow_dispatch:
-
+  workflow_dispatch: # Allow for running this manually.
+ 
 jobs:
   j1:
-    name: main
+    name: github-repo-stats
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: "main"
-
       - name: run-ghrs
+        # Use latest release.
         uses: jgehrcke/github-repo-stats@RELEASE
         with:
           ghtoken: ${{ secrets.ghrs_github_api_token }}
-          databranch: main  # specify the main branch as the data branch
-
+          databranch: main  # specify the branch to push data in it.
+          # Commits files to repository
       - name: Commit changes
         uses: EndBug/add-and-commit@v4
         with:
-          author_name: Zubair
+          author_name: Adnan Sharique
           message: "GitHub traffic"
-          add: "./traffic/"
-          ref: "main"  # commits to the main branch
+          add: "./trafficLatest/"
+          ref: "main"  # commits to branch "traffic"
