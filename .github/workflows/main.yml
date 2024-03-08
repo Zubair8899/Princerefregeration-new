@@ -18,6 +18,7 @@ jobs:
         uses: jgehrcke/github-repo-stats@RELEASE
         with:
           ghtoken: ${{ secrets.ghrs_github_api_token }}
+          databranch: main  # specify the main branch as the data branch
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v4
@@ -25,4 +26,4 @@ jobs:
           author_name: Zubair
           message: "GitHub traffic"
           add: "./traffic/"
-          ref: "main"  # commits to branch "traffic"
+          ref: "main"  # commits to the main branch
